@@ -1,29 +1,30 @@
 
-<html> 
-<head> 
-<meta name="viewport" content="width=device-width" /> 
-</head> 
-<body> 
-<h2><a id="applink1" href="mtcmtc://profile/116201417">Open scheme(mtcmtc) defined in iPhone with parameters </a></h2> 
-<h2><a id="applink2" href="unknown://nowhere">open unknown with fallback to appstore</a></h2> 
-<p><i>Only works on iPhone!</i></p> 
-<script type="text/javascript"> 
-// To avoid the "protocol not supported" alert, fail must open another app.
-var appstore = "itms://itunes.apple.com/us/app/facebook/id284882215?mt=8&uo=6";
-function applink(fail){
-return function(){
-var clickedAt = +new Date;
-// During tests on 3g/3gs this timeout fires immediately if less than 500ms.
-setTimeout(function(){
-// To avoid failing on return to MobileSafari, ensure freshness!
-if (+new Date - clickedAt < 2000){
-window.location = fail;
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body id="body">
+<script type="text/javascript">
+var u = navigator.userAgent,
+app = navigator.appVersion;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isIOS){
+window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.edufound.mobile"; 
 }
-}, 500); 
-};
+if(isAndroid){
+alert("请点击右上角在浏览器打开");
+window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.edufound.mobile";
+var ifr = document.createElement('iframe'); 
+ifr.src = 'efunbox://efunbox.app/efunbox/open'; 
+ifr.style.display = 'none'; 
+document.body.appendChild(ifr); 
+window.setTimeout(function(){ 
+document.body.removeChild(ifr); 
+},3000);
 }
-document.getElementById("applink1").onclick = applink(appstore);
-document.getElementById("applink2").onclick = applink(appstore);
-</script> 
-</body> 
+</script>
+</body>
 </html>
